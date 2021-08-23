@@ -21,7 +21,7 @@ import { formatLabel } from '../common/label.helper';
       [attr.x]="x"
       [attr.y]="y"
     >
-      {{ formatedValue }}
+      {{ formatedValue | sanitizeHtml }}
     </svg:text>
   `,
   styleUrls: ['./bar-label.component.scss'],
