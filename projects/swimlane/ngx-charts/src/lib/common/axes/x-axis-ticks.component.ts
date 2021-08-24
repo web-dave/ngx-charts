@@ -25,7 +25,13 @@ import { reduceTicks } from './ticks.helper';
           [attr.transform]="textTransform"
           [style.font-size]="'12px'"
         >
-          {{ tickTrim(tickFormat(tick)) }}
+          <tspan
+            *ngFor="let str of tickTrimToArray(tickFormat(tick)); let i = index; let f = first"
+            [attr.dy]="i * 20 + 'px'"
+            [attr.dx]="!f ? '-20px' : 'opx'"
+          >
+            {{ str }}
+          </tspan>
         </svg:text>
       </svg:g>
     </svg:g>
@@ -186,5 +192,10 @@ export class XAxisTicksComponent implements OnChanges, AfterViewInit {
 
   tickTrim(label: string): string {
     return this.trimTicks ? trimLabel(label, this.maxTickLength) : label;
+  }
+
+  tickTrimToArray(label: string) {
+    const value = this.trimTicks ? trimLabel(label, this.maxTickLength) : label;
+    return value.split('\n');
   }
 }
